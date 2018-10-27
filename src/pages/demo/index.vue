@@ -1,7 +1,6 @@
 <template>
-  <div class="home-page">
-    home
-    <yd-button type="primary" @click.native="goto('/demo')">goto demo</yd-button>
+  <div>
+    demo
   </div>
 </template>
 
@@ -27,5 +26,6 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+
 </style>

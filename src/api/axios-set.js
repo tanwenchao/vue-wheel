@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Qs from 'qs'
 import { API_ROOT } from './config'
-import { Toast } from 'mand-mobile'
+import Vue from 'vue'
 
 var instance = axios.create({
   // 请求方法
@@ -55,7 +55,11 @@ instance.interceptors.response.use(function (response) {
   let _res = response
   return _res
 }, function (error) {
-  Toast.failed('服务器出现错误')
+  Vue.prototype.$dialog.toast({
+    mes: '服务器出现错误',
+    timeout: 1500,
+    icon: 'error'
+  })
   return Promise.reject(error)
 })
 

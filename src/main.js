@@ -4,17 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import FastClick from 'fastclick'
 import config from '../config'
+import YDUI from 'vue-ydui'
 import vueg from 'vueg'
 import store from './store'
 import router from './router'
 import VueContentPlaceholders from 'vue-content-placeholders'
 import projectInfo from '../package.json'
-import { Toast } from 'mand-mobile'
 import { API_ROOT } from 'api/config'
 import 'vueg/css/transition-min.css'
 import './style/global.less'
 import 'vue-ydui/dist/ydui.base.css'
-import 'vue-ydui/dist/ydui.rem.css'
 
 Vue.config.productionTip = false
 
@@ -24,6 +23,7 @@ const vuegOptions = {
 }
 
 // ----- 全局 use -----
+Vue.use(YDUI)
 Vue.use(vueg, router, vuegOptions)
 Vue.use(VueContentPlaceholders)
 // Vue.use(YDUI)
@@ -72,7 +72,10 @@ Vue.prototype.getImage = function (path, width, height) {
 }
 
 Vue.prototype.devToast = function () {
-  Toast.info('正在建设中...')
+  Vue.prototype.$dialog.toast({
+    mes: '正在建设中...',
+    timeout: 1500
+  })
 }
 
 const history = window.sessionStorage
@@ -81,7 +84,11 @@ let historyCount = history.getItem('count') * 1 || 0
 try {
   history.setItem('/', 0)
 } catch (_) {
-  Toast.failed('请勿在“无痕模式” 或者 “隐私模式” 下打开')
+  Vue.prototype.$dialog.toast({
+    mes: '请勿在“无痕模式” 或者 “隐私模式” 下打开',
+    timeout: 1500,
+    icon: 'error'
+  })
 }
 
 const nextPage = (to, next) => {
@@ -124,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ----- 路由前置钩子 -----
 router.beforeEach((to, from, next) => {
-  Toast.loading('载入中')
+  Vue.prototype.$dialog.loading.open('加载中...')
   /* 路由发生变化修改页面title */
   nextPage(to, next)
 })
@@ -133,7 +140,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach(route => {
   // console.log(route)
   setTimeout(() => {
-    Toast.hide()
+    Vue.prototype.$dialog.loading.close()
   }, 200)
 })
 

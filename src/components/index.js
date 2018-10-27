@@ -1,1 +1,1 @@
-export const uploadBox = resolve => require(['./uploadBox.vue'], resolve)
+// export const demo = resolve => require(['./demo.vue'], resolve)

@@ -16,6 +16,13 @@ export default new Router({
       component: resolve => require(['../pages/home'], resolve),
       meta: { title: '首页' }
     },
+    // demo
+    {
+      path: '/demo',
+      name: 'demo',
+      component: resolve => require(['../pages/demo'], resolve),
+      meta: { title: 'demo' }
+    },
     {
       path: '*',
       name: '404',
